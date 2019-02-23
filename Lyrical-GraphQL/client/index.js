@@ -14,6 +14,10 @@ const client = new ApolloClient({
   dataIdFromObject: o => o.id
 });
 
+/*
+react-router passes route parameters to the first component it renders. If we have composite components, 
+we need to pass any parameters on the query string ourselves from the toplevel component to children. In the below code this applied to SongDetail -> LyricCreate (this.props.params.id)
+*/
 const Root = () => {
   return (
     <ApolloProvider client={client}>

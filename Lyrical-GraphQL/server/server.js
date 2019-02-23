@@ -20,6 +20,8 @@ mongoose.connection
     .on('error', error => console.log('Error connecting to MongoLab:', error));
 
 app.use(bodyParser.json());
+
+// mount a GraphQL API server on the “/graphql” HTTP endpoint
 app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true

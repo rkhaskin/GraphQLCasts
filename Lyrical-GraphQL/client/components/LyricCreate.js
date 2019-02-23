@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+
+// allows to write gql syntax inside js
 import gql from 'graphql-tag';
+
+// allows an association between graphql and component
 import { graphql } from 'react-apollo';
 
 class LyricCreate extends Component {
