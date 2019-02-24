@@ -9,6 +9,9 @@ const {
   GraphQLNonNull
 } = graphql;
 
+/*
+class definition. 
+*/
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
   fields: () => ({
@@ -18,6 +21,13 @@ const CompanyType = new GraphQLObjectType({
     users: {
       type: new GraphQLList(UserType),
       resolve(parentValue, args) {
+        // this returns a promise. But if it returned an object (get the data from db.json using json server and lodash, it would return an object).
+        // When promise is returned from axios call, graphql will automatically detect a Promise, wait until it resolved and send the response
+        // back to the user.
+/*
+        request -> express -> graphQl server -> API
+        response <- express <- graphQL server <- API
+*/        
         return axios.get(`http://localhost:3000/companies/${parentValue.id}/users`)
           .then(res => res.data)
       }
@@ -44,7 +54,8 @@ const UserType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: {
+    // class declaration
+    user: {                // public UserType user(id) { resolve(parentValue, args) {} } 
       type: UserType,
       args: { id: { type: GraphQLString } },
       resolve(parentValue, args) {
@@ -66,7 +77,7 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
-    addUser: {
+    addUser: {               // public UserType addUser(String firstName, String age, String companyId) {return resolve(....)}
       type: UserType,
       args: {
         firstName: { type: new GraphQLNonNull(GraphQLString) },

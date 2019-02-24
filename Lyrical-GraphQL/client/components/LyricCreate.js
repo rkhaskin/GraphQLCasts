@@ -16,6 +16,7 @@ class LyricCreate extends Component {
   onSubmit(event) {
     event.preventDefault();
 
+    // mutate() is added during graphql(mutation)(LyricCreate); mutation defines the function that is invoked by mutate
     this.props.mutate({
       variables: {
         content: this.state.content,

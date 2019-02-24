@@ -16,6 +16,9 @@ class SongCreate extends Component {
 
     this.props.mutate({
       variables: { title: this.state.title },
+      // refresh the list of songs. Similar to ibatis refreshCache on add, update...
+      // if a query takes args, pass them like this:  refetchQueries: [{ query, variables: {var1: var1, var2: var2} }].
+      // refresh happens before redirecting in then().
       refetchQueries: [{ query }]
     }).then(() => hashHistory.push('/'));
   }
